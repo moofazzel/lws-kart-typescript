@@ -1,3 +1,5 @@
+import Image from "next/image";
+import Link from "next/link";
 import Logo from "./Logo";
 
 export default function Navbar() {
@@ -24,8 +26,8 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center space-x-4">
-            <a
-              href="#"
+            <Link
+              href="/wishlist"
               className="text-center text-gray-700 hover:text-primary transition relative"
             >
               <div className="text-2xl">
@@ -35,9 +37,9 @@ export default function Navbar() {
               <div className="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
                 8
               </div>
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              href="/cart"
               className="text-center text-gray-700 hover:text-primary transition relative"
             >
               <div className="text-2xl">
@@ -47,16 +49,16 @@ export default function Navbar() {
               <div className="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
                 2
               </div>
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              href="/account"
               className="text-center text-gray-700 hover:text-primary transition relative"
             >
               <div className="text-2xl">
                 <i className="fa-regular fa-user"></i>
               </div>
               <div className="text-xs leading-3">Account</div>
-            </a>
+            </Link>
           </div>
         </div>
       </header>
@@ -76,102 +78,120 @@ export default function Navbar() {
               className="absolute left-0 top-full bg-white shadow-md py-3 divide-y divide-gray-300 divide-dashed opacity-0 group-hover:opacity-100 transition duration-300 invisible group-hover:visible w-[600px]"
               style={{ width: "300px" }}
             >
-              <a
+              <Link
                 href="#"
                 className="flex items-center px-6 py-3 hover:bg-gray-100 transition"
               >
-                <img
+                <Image
+                  width={300}
+                  height={300}
                   src="assets/images/icons/sofa.svg"
                   alt="sofa"
                   className="w-5 h-5 object-contain"
                 />
                 <span className="ml-6 text-gray-600 text-sm">Sofa</span>
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#"
                 className="flex items-center px-6 py-3 hover:bg-gray-100 transition"
               >
-                <img
+                <Image
+                  width={300}
+                  height={300}
                   src="assets/images/icons/terrace.svg"
                   alt="terrace"
                   className="w-5 h-5 object-contain"
                 />
                 <span className="ml-6 text-gray-600 text-sm">Living Room</span>
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#"
                 className="flex items-center px-6 py-3 hover:bg-gray-100 transition"
               >
-                <img
+                <Image
+                  width={300}
+                  height={300}
                   src="assets/images/icons/bed.svg"
                   alt="bed"
                   className="w-5 h-5 object-contain"
                 />
                 <span className="ml-6 text-gray-600 text-sm">Bedroom</span>
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#"
                 className="flex items-center px-6 py-3 hover:bg-gray-100 transition"
               >
-                <img
+                <Image
+                  width={300}
+                  height={300}
                   src="assets/images/icons/office.svg"
                   alt="Outdoor"
                   className="w-5 h-5 object-contain"
                 />
                 <span className="ml-6 text-gray-600 text-sm">Outdoor</span>
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#"
                 className="flex items-center px-6 py-3 hover:bg-gray-100 transition"
               >
-                <img
+                <Image
+                  width={300}
+                  height={300}
                   src="assets/images/icons/outdoor-cafe.svg"
                   alt="outdoor"
                   className="w-5 h-5 object-contain"
                 />
                 <span className="ml-6 text-gray-600 text-sm">Outdoor</span>
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#"
                 className="flex items-center px-6 py-3 hover:bg-gray-100 transition"
               >
-                <img
+                <Image
+                  width={300}
+                  height={300}
                   src="assets/images/icons/bed-2.svg"
                   alt="Mattress"
                   className="w-5 h-5 object-contain"
                 />
                 <span className="ml-6 text-gray-600 text-sm">Mattress</span>
-              </a>
+              </Link>
             </div>
           </div>
 
           <div className="flex items-center justify-between flex-grow md:pl-12 py-5">
             <div className="flex items-center space-x-6 capitalize">
-              <a
-                href="index.html"
+              <Link
+                href="/"
                 className="text-gray-200 hover:text-white transition"
               >
                 Home
-              </a>
-              <a
+              </Link>
+              <Link
                 href="pages/shop.html"
                 className="text-gray-200 hover:text-white transition"
               >
                 Shop
-              </a>
-              <a href="#" className="text-gray-200 hover:text-white transition">
+              </Link>
+              <Link
+                href="/about"
+                className="text-gray-200 hover:text-white transition"
+              >
                 About us
-              </a>
-              <a href="#" className="text-gray-200 hover:text-white transition">
+              </Link>
+              <Link
+                href="/contact"
+                className="text-gray-200 hover:text-white transition"
+              >
                 Contact us
-              </a>
+              </Link>
             </div>
-            <a
-              href="pages/login.html"
+            <Link
+              href="/login"
               className="text-gray-200 hover:text-white transition"
             >
               Login
-            </a>
+            </Link>
           </div>
         </div>
       </nav>

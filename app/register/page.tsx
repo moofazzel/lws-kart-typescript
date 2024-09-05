@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function LoginPage() {
   return (
     <div className="contain py-16">
@@ -70,9 +72,9 @@ export default function LoginPage() {
                 className="text-gray-600 ml-3 cursor-pointer"
               >
                 I have read and agree to the{" "}
-                <a href="#" className="text-primary">
+                <Link href="#" className="text-primary">
                   terms & conditions
-                </a>
+                </Link>
               </label>
             </div>
           </div>
@@ -94,26 +96,26 @@ export default function LoginPage() {
           <div className="absolute left-0 top-3 w-full border-b-2 border-gray-200"></div>
         </div>
         <div className="mt-4 flex gap-4">
-          <a
+          <Link
             href="#"
             className="w-1/2 py-2 text-center text-white bg-blue-800 rounded uppercase font-roboto font-medium text-sm hover:bg-blue-700"
           >
             facebook
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="w-1/2 py-2 text-center text-white bg-red-600 rounded uppercase font-roboto font-medium text-sm hover:bg-red-500"
           >
             google
-          </a>
+          </Link>
         </div>
         {/* <!-- ./login with --> */}
 
         <p className="mt-4 text-center text-gray-600">
           Already have account?{" "}
-          <a href="/login" className="text-primary">
+          <Link href="/login" className="text-primary">
             Login now
-          </a>
+          </Link>
         </p>
       </div>
     </div>
