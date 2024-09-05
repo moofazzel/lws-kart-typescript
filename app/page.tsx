@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Categories from "./_components/Categories";
 import NewArrival from "./_components/NewArrival";
 import Ads from "./_components/Ads";
+import Product from "./_components/Product";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <Categories />
       <NewArrival />
       <Ads />
+      <Product />
     </main>
   );
 }
