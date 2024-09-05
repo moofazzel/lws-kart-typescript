@@ -2,6 +2,7 @@ import Banner from "@/app/_components/Banner";
 import Features from "@/app/_components/Features";
 import Navbar from "@/components/Navbar";
 import Categories from "./_components/Categories";
+import NewArrival from "./_components/NewArrival";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <Banner />
       <Features />
       <Categories />
+      <NewArrival />
     </main>
   );
 }
