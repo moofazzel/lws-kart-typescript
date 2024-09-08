@@ -1,8 +1,12 @@
+import { auth } from "@/auth";
 import Image from "next/image";
 import Link from "next/link";
 import Logo from "./Logo";
+import { ServerLogout } from "./ServerLogout";
 
-export default function Navbar() {
+export default async function Navbar() {
+  const session = await auth();
+  console.log("🚀 ~ session:", session);
   return (
     <>
       <header className="py-4 shadow-sm bg-white">
@@ -186,12 +190,16 @@ export default function Navbar() {
                 Contact us
               </Link>
             </div>
-            <Link
-              href="/login"
-              className="text-gray-200 hover:text-white transition"
-            >
-              Login
-            </Link>
+            {!session?.user?.email ? (
+              <Link
+                href="/login"
+                className="text-gray-200 hover:text-white transition"
+              >
+                Login
+              </Link>
+            ) : (
+              <ServerLogout />
+            )}
           </div>
         </div>
       </nav>
