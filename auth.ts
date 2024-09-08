@@ -1,33 +1,42 @@
-import NextAuth from "next-auth"
-import Credentials from "next-auth/providers/credentials"
+import bcrypt from "bcryptjs";
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import dbConnect from "./lib/mongodb";
+import { User } from "./model/user-model";
 
- 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const {
+  handlers: { GET, POST },
+  signIn,
+  signOut,
+  auth,
+} = NextAuth({
   providers: [
-    Credentials({
+    CredentialsProvider({
       // You can specify which fields should be submitted, by adding keys to the `credentials` object.
       // e.g. domain, username, password, 2FA token, etc.
       credentials: {
-        email: {},
-        password: {},
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
-        let user = null
- 
-      
- 
-        // logic to verify if the user exists
-        user = await getUserFromDb(credentials.email, pwHash)
- 
-        if (!user) {
-          // No user found, so this is their first attempt to login
-          // meaning this is also the place you could do registration
-          throw new Error("User not found.")
+        if (credentials === null) return null;
+
+        await dbConnect();
+        const foundUser = await User.findOne({ email: credentials.email });
+        if (!foundUser) {
+          throw new Error("Incorrect email");
         }
- 
-        // return user object with their profile data
-        return user
+
+        const isValidPassword = await bcrypt.compare(
+          credentials.password as string,
+          foundUser.password
+        );
+        if (!isValidPassword) {
+          throw new Error("Incorrect password");
+        }
+
+        return foundUser;
       },
     }),
   ],
-})
+});

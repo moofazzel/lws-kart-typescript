@@ -16,7 +16,7 @@ const RegisterForm = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const router = useRouter();
 
@@ -53,9 +53,12 @@ const RegisterForm = () => {
 
       router.push("/login");
     } catch (error) {
-      console.log("🚀 ~ error:", error);
       setLoading(false);
-      setErrorMessage(error.message);
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+      } else {
+        setErrorMessage("An unknown error occurred");
+      }
     }
   };
 
