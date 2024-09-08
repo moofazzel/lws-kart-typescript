@@ -85,7 +85,7 @@ export default function Navbar() {
                 <Image
                   width={300}
                   height={300}
-                  src="assets/images/icons/sofa.svg"
+                  src="/images/icons/sofa.svg"
                   alt="sofa"
                   className="w-5 h-5 object-contain"
                 />
@@ -98,7 +98,7 @@ export default function Navbar() {
                 <Image
                   width={300}
                   height={300}
-                  src="assets/images/icons/terrace.svg"
+                  src="/images/icons/terrace.svg"
                   alt="terrace"
                   className="w-5 h-5 object-contain"
                 />
@@ -111,7 +111,7 @@ export default function Navbar() {
                 <Image
                   width={300}
                   height={300}
-                  src="assets/images/icons/bed.svg"
+                  src="/images/icons/bed.svg"
                   alt="bed"
                   className="w-5 h-5 object-contain"
                 />
@@ -124,7 +124,7 @@ export default function Navbar() {
                 <Image
                   width={300}
                   height={300}
-                  src="assets/images/icons/office.svg"
+                  src="/images/icons/office.svg"
                   alt="Outdoor"
                   className="w-5 h-5 object-contain"
                 />
@@ -137,7 +137,7 @@ export default function Navbar() {
                 <Image
                   width={300}
                   height={300}
-                  src="assets/images/icons/outdoor-cafe.svg"
+                  src="/images/icons/outdoor-cafe.svg"
                   alt="outdoor"
                   className="w-5 h-5 object-contain"
                 />
@@ -150,7 +150,7 @@ export default function Navbar() {
                 <Image
                   width={300}
                   height={300}
-                  src="assets/images/icons/bed-2.svg"
+                  src="/images/icons/bed-2.svg"
                   alt="Mattress"
                   className="w-5 h-5 object-contain"
                 />
