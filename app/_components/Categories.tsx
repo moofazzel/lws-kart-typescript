@@ -5,6 +5,7 @@ import category4 from "@/public/images/category/category-4.jpg";
 import category5 from "@/public/images/category/category-5.jpg";
 import category6 from "@/public/images/category/category-6.jpg";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Categories() {
   return (
@@ -16,12 +17,12 @@ export default function Categories() {
         <div className="relative rounded-sm overflow-hidden group">
           <Image src={category1} alt="category 1" className="w-full" />
 
-          <a
-            href="#"
+          <Link
+            href="/category"
             className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-xl text-white font-roboto font-medium group-hover:bg-opacity-60 transition"
           >
             Bedroom
-          </a>
+          </Link>
         </div>
         <div className="relative rounded-sm overflow-hidden group">
           <Image src={category2} alt="category 2" className="w-full" />

@@ -1,4 +1,9 @@
-export default function page() {
+import { auth } from "@/auth";
+
+export default async function AccountPage() {
+  const session = await auth();
+  console.log("🚀 ~ session:", session);
+
   return (
     <section>
       <div className="container py-4 flex items-center gap-3">
@@ -23,7 +28,7 @@ export default function page() {
           </div>
           <div className="space-y-1">
             <h4 className="text-gray-700 font-medium">John Doe</h4>
-            <p className="text-gray-800">example@mail.com</p>
+            <p className="text-gray-800">{session?.user?.email}</p>
             <p className="text-gray-800">0811 8877 988</p>
           </div>
         </div>
