@@ -23,7 +23,6 @@ const RegisterForm = () => {
   const registerUser = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setErrorMessage(null);
-    setLoading(true);
 
     const formData = new FormData(event.target as HTMLFormElement);
 
@@ -32,26 +31,36 @@ const RegisterForm = () => {
     const password = formData.get("password");
     const confirm = formData.get("confirm");
 
+    setIsConfirmedPassword(true);
     if (confirm !== password) {
       setIsConfirmedPassword(false);
       return;
     }
 
     try {
+      setLoading(true);
       const response = await fetch("/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: fullName,
+          fullName: fullName,
           email: email,
           password: password,
         }),
       });
+
+      const data = await response.json();
+      console.log("🚀 ~ resData:", response);
+
       setLoading(false);
 
-      router.push("/login");
+      if (data.status === 400) {
+        setErrorMessage(data.message);
+      }
+
+      // router.push("/login");
     } catch (error) {
       setLoading(false);
       if (error instanceof Error) {
@@ -127,9 +136,7 @@ const RegisterForm = () => {
                 alt="eye"
               />
             </div>
-            {isConfirmedPassword ? (
-              ""
-            ) : (
+            {!isConfirmedPassword && (
               <small className="text-red-500">Password not match</small>
             )}
           </div>
@@ -155,9 +162,7 @@ const RegisterForm = () => {
                 alt="eye"
               />
             </div>
-            {isConfirmedPassword ? (
-              ""
-            ) : (
+            {!isConfirmedPassword && (
               <small className="text-red-500">Password not match</small>
             )}
           </div>
