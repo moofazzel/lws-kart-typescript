@@ -26,10 +26,11 @@ const RegisterForm = () => {
 
     const formData = new FormData(event.target as HTMLFormElement);
 
-    const fullName = formData.get("name");
+    const fullName = (formData.get("name") as string)?.trim();
     const email = formData.get("email");
     const password = formData.get("password");
     const confirm = formData.get("confirm");
+    console.log("🚀 ~ confirm:", confirm);
 
     setIsConfirmedPassword(true);
     if (confirm !== password) {
@@ -52,15 +53,15 @@ const RegisterForm = () => {
       });
 
       const data = await response.json();
-      console.log("🚀 ~ resData:", response);
 
       setLoading(false);
 
       if (data.status === 400) {
         setErrorMessage(data.message);
+        return;
       }
 
-      // router.push("/login");
+      router.push("/login");
     } catch (error) {
       setLoading(false);
       if (error instanceof Error) {
@@ -127,6 +128,7 @@ const RegisterForm = () => {
                   isConfirmedPassword ? "" : "!border-red-500"
                 } block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400`}
                 placeholder="*******"
+                minlength="6"
                 required
               />
               <Image
@@ -153,6 +155,7 @@ const RegisterForm = () => {
                   isConfirmedPassword ? "" : "!border-red-500"
                 } block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400`}
                 placeholder="*******"
+                minlength="6"
                 required
               />
               <Image

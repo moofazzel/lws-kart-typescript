@@ -39,4 +39,18 @@ export const {
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.fullName = user.fullName;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token && token.fullName === "string") {
+        session.user.fullName = token.fullName;
+      }
+      return session;
+    },
+  },
 });
