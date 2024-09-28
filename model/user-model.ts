@@ -1,4 +1,4 @@
-import { IUser } from "@/types/IUser";
+import { IUser } from "@/types/models/IUser";
 import { model, models, Schema } from "mongoose";
 
 const addressSchema = new Schema({
