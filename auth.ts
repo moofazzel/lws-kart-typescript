@@ -47,9 +47,10 @@ export const {
       return token;
     },
     async session({ session, token }) {
-      if (token && token.fullName === "string") {
-        session.user.fullName = token.fullName;
-      }
+      session.user = {
+        ...session.user,
+        fullName: token.fullName as string,
+      };
       return session;
     },
   },

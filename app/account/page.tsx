@@ -2,7 +2,6 @@ import { auth } from "@/auth";
 
 export default async function AccountPage() {
   const session = await auth();
-  console.log("🚀 ~ session:", session);
 
   return (
     <section>
@@ -27,7 +26,9 @@ export default async function AccountPage() {
             </a>
           </div>
           <div className="space-y-1">
-            <h4 className="text-gray-700 font-medium">John Doe</h4>
+            <h4 className="text-gray-700 font-medium">
+              {session?.user?.fullName}
+            </h4>
             <p className="text-gray-800">{session?.user?.email}</p>
             <p className="text-gray-800">0811 8877 988</p>
           </div>
