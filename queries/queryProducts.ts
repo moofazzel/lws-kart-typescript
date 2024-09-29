@@ -24,8 +24,43 @@ export const getNewArrivals = async () => {
     quickSalesFlag: true, // Products that had quick sales
   };
 
+  // Ensure TypeScript understands that this is an array of LeanProduct
   const newArrivals = await Product.find(query)
     .sort({ createdAt: -1 })
-    .limit(10);
-  return newArrivals;
+    .limit(10)
+    .select("_id name price images ratings reviewCount")
+    .lean()
+    .exec();
+
+  // Map through the array of products and ensure TypeScript knows the product structure
+  const newArrivalsWithReqField = newArrivals.map((product) => ({
+    ...product,
+    images: product.images.length ? [product.images[0]] : [],
+  }));
+
+  // return replaceMongoIdInArray(newArrivalsWithReqField);
+  return newArrivalsWithReqField;
+};
+
+export const getTrendingProducts = async () => {
+  await dbConnect();
+
+  const query = {
+    isTrending: true, // Only include products flagged as trending
+    views: { $gte: 1000 }, // Products with at least 1000 views
+    salesVolume: { $gte: 50 }, // Products with at least 50 sales
+  };
+
+  const trendingProducts = await Product.find(query)
+    .sort({ views: -1 }) // Sort by views in descending order (most popular first)
+    .limit(20) // Limit to the top 20 trending products
+    .select("_id name price salePrice images ratings reviewCount") // Select only required fields
+    .lean() // Return plain JavaScript objects instead of Mongoose documents
+    .exec();
+
+  // Map through the results and replace _id with id
+  return trendingProducts.map((product) => ({
+    ...product,
+    images: product.images.length ? [product.images[0]] : [],
+  }));
 };
