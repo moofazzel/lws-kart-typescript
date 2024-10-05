@@ -1,5 +1,6 @@
 import dbConnect from "@/lib/mongodb";
 import { Product } from "@/model/product-model";
+import { IProduct } from "@/types/models/IProduct";
 
 export const getAllProducts = async () => {
   await dbConnect();
@@ -63,4 +64,23 @@ export const getTrendingProducts = async () => {
     ...product,
     images: product.images.length ? [product.images[0]] : [],
   }));
+};
+
+export const getProductDetailsById = async (
+  id: string
+): Promise<IProduct | null> => {
+  await dbConnect();
+
+  const product = await Product.findById(id).lean();
+
+  if (!product) return null;
+
+  const serializedProduct = {
+    ...product,
+    _id: product._id.toString(),
+    createdAt: product.createdAt?.toISOString(),
+    updatedAt: product.updatedAt?.toISOString(),
+  };
+
+  return serializedProduct as IProduct;
 };

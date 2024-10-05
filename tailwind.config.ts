@@ -30,10 +30,11 @@ const config: Config = {
       },
     },
   },
-  
+
   plugins: [
     require("@tailwindcss/forms"),
     flowbite.plugin(),
+    require("@tailwindcss/aspect-ratio"),
   ],
 };
 export default config;

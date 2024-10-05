@@ -15,3 +15,5 @@ export interface LeanProduct {
   ratings: number;
   reviewCount: number;
 }
+
+export interface IProductDetails {}
