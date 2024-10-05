@@ -11,13 +11,13 @@ interface ProductItemProps {
 export const ProductItem = ({ product }: ProductItemProps) => {
   return (
     <div className="bg-white shadow rounded overflow-hidden group">
-      <div className="relative">
+      <div className="relative aspect-w-5 aspect-h-5 ">
         <Image
           width={300}
           height={300}
           src={product.images[0]}
           alt="product 1"
-          className="object-cover w-full aspect-video"
+          className="object-cover w-full"
         />
         <div
           className="absolute inset-0 bg-black bg-opacity-40 flex items-center 

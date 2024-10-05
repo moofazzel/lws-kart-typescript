@@ -3,7 +3,6 @@
 import { useState } from "react";
 
 const ProductAction = ({ productDetails }) => {
-  console.log("🚀 ~ productDetails:", productDetails.stock);
   const [quantity, setQuantity] = useState(1);
 
   // Increment quantity
