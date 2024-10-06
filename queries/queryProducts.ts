@@ -66,20 +66,24 @@ export const getTrendingProducts = async () => {
   }));
 };
 
-export const getProductDetailsById = async (
-  id: string
-): Promise<IProduct | null> => {
+export const getProductDetailsById = async (id: string) => {
   await dbConnect();
 
-  const product = await Product.findById(id).lean();
+  const product = (await Product.findById(id).lean()) as IProduct;
 
   if (!product) return null;
 
   const serializedProduct = {
     ...product,
     _id: product._id.toString(),
-    createdAt: product.createdAt?.toISOString(),
-    updatedAt: product.updatedAt?.toISOString(),
+    createdAt:
+      product.createdAt instanceof Date
+        ? product.createdAt.toISOString()
+        : product.createdAt,
+    updatedAt:
+      product.updatedAt instanceof Date
+        ? product.updatedAt.toISOString()
+        : product.updatedAt,
   };
 
   return serializedProduct as IProduct;

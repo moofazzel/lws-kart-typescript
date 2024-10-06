@@ -1,12 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 
-const ShowProductImage = ({ productImages }) => {
+const ShowProductImage = ({ productImages }: { productImages: string[] }) => {
   const [image, setImage] = useState(productImages[0]);
 
-  const handleSetImage = (image) => {
+  const handleSetImage = (image: SetStateAction<string>) => {
     setImage(image);
   };
   return (

@@ -1,8 +1,9 @@
 "use client";
 
+import { IProduct } from "@/types/models/IProduct";
 import { useState } from "react";
 
-const ProductAction = ({ productDetails }) => {
+const ProductAction = ({ productDetails }: { productDetails: IProduct }) => {
   const [quantity, setQuantity] = useState(1);
 
   // Increment quantity
