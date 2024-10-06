@@ -11,7 +11,7 @@ interface ProductItemProps {
 export const ProductItem = ({ product }: ProductItemProps) => {
   return (
     <div className="bg-white shadow rounded overflow-hidden group">
-      <div className="relative aspect-w-5 aspect-h-5 ">
+      <div className="relative aspect-w-5 aspect-h-4 ">
         <Image
           width={300}
           height={300}
@@ -47,10 +47,10 @@ export const ProductItem = ({ product }: ProductItemProps) => {
         </Link>
         <div className="flex items-baseline mb-1 space-x-2">
           <p className="text-xl text-primary font-semibold">
-            {formatCurrency(product?.price)}
+            {formatCurrency(product?.salePrice)}
           </p>
           <p className="text-sm text-gray-400 line-through">
-            {formatCurrency(product?.salePrice)}
+            {formatCurrency(product?.price)}
           </p>
         </div>
         <div className="flex items-center">

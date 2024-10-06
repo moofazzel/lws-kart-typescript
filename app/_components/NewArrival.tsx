@@ -3,7 +3,6 @@ import { ProductItem } from "./ProductItem";
 
 export default async function NewArrival() {
   const newArrivalProducts = await getNewArrivals();
-  console.log("🚀 ~ newArrivalProducts:", newArrivalProducts);
 
   return (
     <div className="container pb-16">

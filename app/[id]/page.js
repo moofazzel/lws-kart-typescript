@@ -1,4 +1,7 @@
-import { getProductDetailsById } from "@/queries/queryProducts";
+import {
+  getProductDetailsById,
+  getRelatedProducts,
+} from "@/queries/queryProducts";
 import { formatCurrency } from "@/utils";
 import StarRating from "../_components/StarRating";
 import RelatedProducts from "./_components/RelatedProducts";
@@ -9,6 +12,8 @@ import ProductAction from "./_components/ProductAction";
 
 export default async function ProductDetails({ params: { id } }) {
   const productDetails = await getProductDetailsById(id);
+
+  const relatedProduct = await getRelatedProducts(productDetails.category, id);
 
   return (
     <section>
@@ -102,7 +107,7 @@ export default async function ProductDetails({ params: { id } }) {
         </div>
       </div>
       {/* related product */}
-      <RelatedProducts />
+      <RelatedProducts relatedProducts={relatedProduct} />
     </section>
   );
 }

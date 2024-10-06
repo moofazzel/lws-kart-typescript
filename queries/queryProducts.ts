@@ -29,7 +29,7 @@ export const getNewArrivals = async () => {
   const newArrivals = await Product.find(query)
     .sort({ createdAt: -1 })
     .limit(10)
-    .select("_id name price images ratings reviewCount")
+    .select("_id name price salePrice images ratings reviewCount")
     .lean()
     .exec();
 
@@ -83,4 +83,25 @@ export const getProductDetailsById = async (
   };
 
   return serializedProduct as IProduct;
+};
+
+export const getRelatedProducts = async (category: string, id: string) => {
+  await dbConnect();
+
+  const relatedProducts = (await Product.find({
+    category,
+    _id: { $ne: id },
+  })
+    .lean()
+    .select(
+      "_id name price salePrice images ratings reviewCount"
+    )) as IProduct[];
+
+  const serializedProducts = relatedProducts.map((product) => ({
+    ...product,
+    _id: product._id.toString(),
+    images: product.images.length ? [product.images[0]] : [],
+  }));
+
+  return serializedProducts;
 };

@@ -11,7 +11,7 @@ const ShowProductImage = ({ productImages }) => {
   };
   return (
     <div>
-      <div className="aspect-w-4 aspect-h-3">
+      <div className="aspect-w-5 aspect-h-3">
         <Image
           width={600}
           height={600}

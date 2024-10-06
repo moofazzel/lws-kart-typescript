@@ -12,7 +12,7 @@ const StarRating = ({ rating }: { rating: number }) => {
           <svg
             stroke="currentColor"
             fill="currentColor"
-            stroke-width="0"
+            strokeWidth="0"
             version="1.2"
             baseProfile="tiny"
             viewBox="0 0 24 24"
@@ -30,7 +30,7 @@ const StarRating = ({ rating }: { rating: number }) => {
           <svg
             stroke="currentColor"
             fill="currentColor"
-            stroke-width="0"
+            strokeWidth="0"
             viewBox="0 0 576 512"
             height="1em"
             width="1em"
@@ -46,7 +46,7 @@ const StarRating = ({ rating }: { rating: number }) => {
           <svg
             stroke="currentColor"
             fill="currentColor"
-            stroke-width="0"
+            strokeWidth="0"
             version="1.1"
             viewBox="0 0 16 16"
             height="1em"
