@@ -43,6 +43,8 @@ export const {
     async jwt({ token, user }) {
       if (user) {
         token.fullName = user.fullName;
+        token.id = user._id;
+        token.role = user.role;
       }
       return token;
     },
@@ -50,6 +52,7 @@ export const {
       session.user = {
         ...session.user,
         fullName: token.fullName as string,
+        id: token.id,
       };
       return session;
     },

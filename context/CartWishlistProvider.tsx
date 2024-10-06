@@ -1,6 +1,13 @@
 "use client";
 
-import { createContext, ReactNode, useContext, useState } from "react";
+import { addToWishListActions } from "@/actions/WishListActons";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import toast from "react-hot-toast";
 
 // Cart and Wishlist item types
@@ -9,8 +16,12 @@ interface CartItem {
   quantity: number;
 }
 
-interface WishlistItem {
+export interface WishlistItem {
   productId: string;
+  name: string;
+  salePrice: number;
+  images: string[];
+  stock: number;
 }
 
 // Combined context type
@@ -32,6 +43,14 @@ export const CartWishlistProvider = ({ children }: { children: ReactNode }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
 
+  // Load wishlist from localStorage when the component mounts
+  useEffect(() => {
+    const storedWishlist = localStorage.getItem("wishlist");
+    if (storedWishlist) {
+      setWishlistItems(JSON.parse(storedWishlist));
+    }
+  }, []);
+
   const addToCart = (item: CartItem) => {
     setCartItems((prevItems) => [...prevItems, item]);
     // Optionally, synchronize with the server here
@@ -44,7 +63,7 @@ export const CartWishlistProvider = ({ children }: { children: ReactNode }) => {
     // Optionally, synchronize with the server here
   };
 
-  const addToWishlist = (item: WishlistItem) => {
+  const addToWishlist = async (item: WishlistItem) => {
     const isAlreadyInWishlist = wishlistItems.some(
       (wishlistItem) => wishlistItem.productId === item.productId
     );
@@ -54,16 +73,42 @@ export const CartWishlistProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
 
-    setWishlistItems((prevItems) => [...prevItems, item]);
-    // Optionally, synchronize with the server here
+    // Optimistically add to the local state
+    setWishlistItems((prevItems) => {
+      const updatedWishlist = [...prevItems, item];
+      // Save to localStorage
+      localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+      return updatedWishlist;
+    });
 
-    toast.success("Product added to wishlist");
+    try {
+      const res = await addToWishListActions(item.productId); // Server-side action
+
+      if (res.success) {
+        toast.success(res.message);
+      } else {
+        // Rollback if there's a server error
+        setWishlistItems((prevItems) =>
+          prevItems.filter(
+            (wishlistItem) => wishlistItem.productId !== item.productId
+          )
+        );
+        localStorage.setItem("wishlist", JSON.stringify(wishlistItems)); // Sync rollback
+        toast.error(res.message);
+      }
+    } catch (error) {
+      setWishlistItems((prevItems) =>
+        prevItems.filter(
+          (wishlistItem) => wishlistItem.productId !== item.productId
+        )
+      );
+      localStorage.setItem("wishlist", JSON.stringify(wishlistItems)); // Sync rollback
+      toast.error("Failed to add product to wishlist");
+    }
   };
 
   const removeFromWishlist = (productId: string) => {
-    console.log("🚀 ~ productId:", productId);
     setWishlistItems((prevItems) => {
-      console.log("🚀 ~ prevItems:", prevItems);
       return prevItems.filter((item) => item.productId !== productId);
     });
 

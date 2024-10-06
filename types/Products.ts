@@ -10,6 +10,7 @@ export interface LeanProduct {
   id: string;
   name: string;
   price: number;
+  sellPrice: number;
   salePrice: number;
   images: string[];
   ratings: number;

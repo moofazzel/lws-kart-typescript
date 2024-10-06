@@ -23,10 +23,7 @@ export default function WishlistPage() {
         <div className="mx-auto space-y-4 max-w-6xl">
           {wishlistItems.length > 0 ? (
             wishlistItems.map((product) => (
-              <WishlistItem
-                key={product.productId}
-                productID={product.productId}
-              />
+              <WishlistItem key={product.productId} product={product} />
             ))
           ) : (
             <p className="text-center text-gray-500 font-medium">
