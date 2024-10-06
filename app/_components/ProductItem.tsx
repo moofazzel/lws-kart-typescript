@@ -2,6 +2,8 @@ import { LeanProduct } from "@/types/Products";
 import { formatCurrency } from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
+import { FaMagnifyingGlass } from "react-icons/fa6";
+import AddToWishListButton from "./AddToWishListButton";
 import StarRating from "./StarRating";
 
 interface ProductItemProps {
@@ -9,6 +11,10 @@ interface ProductItemProps {
 }
 
 export const ProductItem = ({ product }: ProductItemProps) => {
+  const serializedProducts = {
+    ...product,
+    _id: product._id.toString(),
+  };
   return (
     <div className="bg-white shadow rounded overflow-hidden group">
       <div className="relative aspect-w-5 aspect-h-4 ">
@@ -24,19 +30,13 @@ export const ProductItem = ({ product }: ProductItemProps) => {
                     justify-center gap-2 opacity-0 group-hover:opacity-100 transition"
         >
           <Link
-            href="#"
+            href={`/${product._id}`}
             className="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
             title="view product"
           >
-            <i className="fa-solid fa-magnifying-glass"></i>
+            <FaMagnifyingGlass />
           </Link>
-          <Link
-            href="#"
-            className="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
-            title="add to wishlist"
-          >
-            <i className="fa-solid fa-heart"></i>
-          </Link>
+          <AddToWishListButton product={serializedProducts} isOnlyIcon={true} />
         </div>
       </div>
       <div className="pt-4 pb-3 px-4">

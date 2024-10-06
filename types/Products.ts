@@ -6,8 +6,8 @@ export interface ProductItemProps {
 
 // Define the LeanProduct type
 export interface LeanProduct {
-  _id: string | number;
-  id: string | number;
+  _id: string;
+  id: string;
   name: string;
   price: number;
   salePrice: number;

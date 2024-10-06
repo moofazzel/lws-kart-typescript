@@ -4,7 +4,7 @@ import { IProduct } from "@/types/models/IProduct";
 
 export const getAllProducts = async () => {
   await dbConnect();
-  const products = await Product.find({});
+  const products = await Product.find({}).lean();
   return products;
 };
 

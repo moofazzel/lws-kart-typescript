@@ -6,6 +6,8 @@ import NewArrival from "./_components/NewArrival";
 import Product from "./_components/Product";
 
 export default function Home() {
+  console.log("🚀 ~ file: page.tsx:Home");
+
   return (
     <main>
       <Banner />

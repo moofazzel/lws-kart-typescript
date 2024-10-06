@@ -1,7 +1,9 @@
 "use client";
 
+import AddToWishListButton from "@/app/_components/AddToWishListButton";
 import { IProduct } from "@/types/models/IProduct";
 import { useState } from "react";
+import { FaBagShopping } from "react-icons/fa6";
 
 const ProductAction = ({ productDetails }: { productDetails: IProduct }) => {
   const [quantity, setQuantity] = useState(1);
@@ -48,14 +50,11 @@ const ProductAction = ({ productDetails }: { productDetails: IProduct }) => {
           href="#"
           className="bg-primary border border-primary text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-primary transition"
         >
-          <i className="fa-solid fa-bag-shopping"></i> Add to cart
+          <FaBagShopping /> Add to cart
         </a>
-        <a
-          href="#"
-          className="border border-gray-300 text-gray-600 px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:text-primary transition"
-        >
-          <i className="fa-solid fa-heart"></i> Wishlist
-        </a>
+        <AddToWishListButton
+          product={{ ...productDetails, _id: productDetails._id.toString() }}
+        />
       </div>
     </>
   );
