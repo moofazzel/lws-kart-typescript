@@ -21,7 +21,7 @@ export default function WishlistPage() {
       <div className="container gap-6 pt-4 pb-16">
         {/* <!-- wishlist --> */}
         <div className="mx-auto space-y-4 max-w-6xl">
-          {wishlistItems.length > 0 ? (
+          {wishlistItems?.length > 0 ? (
             wishlistItems.map((product) => (
               <WishlistItem key={product.productId} product={product} />
             ))

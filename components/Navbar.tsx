@@ -31,7 +31,9 @@ export default async function Navbar() {
           </div>
 
           <div className="flex items-center space-x-4">
+            {/* Wishlist and Cart buttons */}
             <NavCartAndWish />
+
             <Link
               href="/account"
               className="text-center text-gray-700 hover:text-primary transition relative"

@@ -40,8 +40,16 @@ const CartWishlistContext = createContext<CartWishlistContextType | undefined>(
 );
 
 export const CartWishlistProvider = ({ children }: { children: ReactNode }) => {
+  let localWishlist;
+
+  if (typeof window !== "undefined") {
+    localWishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+  }
+
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
+
+  const [wishlistItems, setWishlistItems] =
+    useState<WishlistItem[]>(localWishlist);
 
   // Load wishlist from localStorage when the component mounts
   useEffect(() => {
@@ -108,8 +116,14 @@ export const CartWishlistProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const removeFromWishlist = (productId: string) => {
+    // Optimistically update the UI by removing the item from the wishlist
     setWishlistItems((prevItems) => {
-      return prevItems.filter((item) => item.productId !== productId);
+      const updatedWishlist = prevItems.filter(
+        (item) => item.productId !== productId
+      );
+      // Update localStorage
+      localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+      return updatedWishlist;
     });
 
     // Optionally, synchronize with the server here
