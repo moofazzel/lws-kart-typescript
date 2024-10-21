@@ -1,7 +1,7 @@
 "use client";
 import { credentialLogin } from "@/actions/login";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 type FormData = {
@@ -20,10 +20,13 @@ const LoginForm = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const loginUser = async (event: React.FormEvent<HTMLFormElement>) => {
     setErrorMessage(null);
     event.preventDefault();
+
+    const callbackUrl = searchParams.get("callbackUrl") || "/";
 
     const formData = new FormData(event.target as HTMLFormElement);
 
@@ -41,7 +44,7 @@ const LoginForm = () => {
       setLoading(true);
       const response = await credentialLogin(rowFormData);
       if (response?.success) {
-        router.push("/");
+        router.push(callbackUrl);
       } else {
         setErrorMessage("Invalid username or password");
       }

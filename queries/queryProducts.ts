@@ -75,7 +75,7 @@ export const getProductDetailsById = async (id: string) => {
 
   const serializedProduct = {
     ...product,
-    _id: product._id.toString(),
+    // _id: product._id.toString(),
     createdAt:
       product.createdAt instanceof Date
         ? product.createdAt.toISOString()

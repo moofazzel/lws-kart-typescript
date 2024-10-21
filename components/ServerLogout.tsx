@@ -7,7 +7,7 @@ export function ServerLogout() {
       action={async () => {
         "use server";
         await signOut();
-        redirect("/");
+        redirect("/login");
       }}
     >
       <button

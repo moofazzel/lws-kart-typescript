@@ -5,6 +5,9 @@ import Link from "next/link";
 
 const NavCartAndWish = () => {
   const { wishlistItems } = useCartWishlist();
+
+  // Fallback to an empty array if wishlistItems is undefined
+  const wishlistCount = wishlistItems ? wishlistItems.length : 0;
   return (
     <div className="flex items-center space-x-4">
       <Link
@@ -18,7 +21,7 @@ const NavCartAndWish = () => {
         <div className="text-xs leading-3">Wishlist</div>
         {/* Wishlist badge */}
         <div className="absolute -right-4 -top-3  w-4 h-4 rounded-full flex items-center justify-center bg-primary text-white text-xs">
-          {wishlistItems.length}
+          {wishlistCount}
         </div>
       </Link>
       <Link

@@ -8,6 +8,7 @@ import { ServerLogout } from "./ServerLogout";
 
 export default async function Navbar() {
   const session = await auth();
+  console.log("🚀 ~ session:", session);
   return (
     <>
       <header className="py-4 shadow-sm bg-white">

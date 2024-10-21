@@ -30,3 +30,23 @@ export async function credentialLogin(formData: {
     };
   }
 }
+
+export async function doSocialLogin(fromData: {
+  action: "google" | "facebook";
+  callback: string;
+}) {
+  const result = await signIn(fromData.action, {
+    redirectTo: fromData.callback,
+  });
+  console.log("🚀 ~ result:", result);
+  if (result) {
+    return {
+      success: true,
+    };
+  }
+
+  return {
+    success: false,
+    message: `An error occurred during ${fromData.action} login`,
+  };
+}

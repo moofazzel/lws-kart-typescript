@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 
 export default async function AccountPage() {
   const session = await auth();
+  console.log("🚀 ~ session:", session);
 
   return (
     <section>

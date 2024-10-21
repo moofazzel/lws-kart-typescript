@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { CartWishlistProvider } from "@/context/CartWishlistProvider";
@@ -13,11 +14,14 @@ export const metadata: Metadata = {
   description: "Kart e-commerce app",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+  console.log("🚀 ~ session:", session);
+
   return (
     <html lang="en">
       <body className={inter.className}>

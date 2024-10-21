@@ -1,6 +1,8 @@
 import bcrypt from "bcryptjs";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import Google from "next-auth/providers/google";
+import { authConfig } from "./auth.config";
 import dbConnect from "./lib/mongodb";
 import { User } from "./model/user-model";
 
@@ -10,10 +12,9 @@ export const {
   signOut,
   auth,
 } = NextAuth({
+  ...authConfig,
   providers: [
     CredentialsProvider({
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
       credentials: {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
@@ -38,22 +39,57 @@ export const {
         return foundUser;
       },
     }),
+    Google({
+      clientId: process.env.GOOGLE_ID!,
+      clientSecret: process.env.GOOGLE_SECRET!,
+      //  Show user consent page for show more info
+      // authorization: {
+      //   params: {
+      //     prompt: "consent",
+      //     access_type: "offline",
+      //     response_type: "code",
+      //   },
+      // },
+    }),
   ],
+
   callbacks: {
-    async jwt({ token, user }) {
+    async signIn({ user, account, profile }) {
+      await dbConnect();
+
+      const existingUser = await User.findOne({ email: user.email });
+
+      if (!existingUser) {
+        const newUser = new User({
+          fullName: user.name,
+          email: user.email,
+          role: "customer",
+        });
+        await newUser.save();
+      } else {
+        existingUser.fullName = user.name;
+        await existingUser.save();
+      }
+
+      return true;
+    },
+
+    async jwt({ token, user, account }) {
+      if (account) {
+        token.callbackUrl = account.callbackUrl || "/";
+      }
       if (user) {
+        token.id = user.id;
         token.fullName = user.fullName;
-        token.id = user._id;
         token.role = user.role;
       }
       return token;
     },
     async session({ session, token }) {
-      session.user = {
-        ...session.user,
-        fullName: token.fullName as string,
-        id: token.id,
-      };
+      session.user.id = token.id as string;
+      session.user.fullName = token.fullName as string;
+      session.user.role = token.role as string;
+      session.callbackUrl = token.callbackUrl || "/"; // Default redirect to home if no callbackUrl is passed
       return session;
     },
   },
