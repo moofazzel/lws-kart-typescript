@@ -1,4 +1,4 @@
-import { ProductItem } from "@/app/_components/ProductItem";
+import { ProductItem } from "@/app/(main)/_components/ProductItem";
 import { LeanProduct } from "@/types/Products";
 
 interface RelatedProductsProps {

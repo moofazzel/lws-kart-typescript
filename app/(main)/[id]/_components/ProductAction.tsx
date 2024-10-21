@@ -1,6 +1,6 @@
 "use client";
 
-import AddToWishListButton from "@/app/_components/AddToWishListButton";
+import AddToWishListButton from "@/app/(main)/_components/AddToWishListButton";
 import { IProduct } from "@/types/models/IProduct";
 import { useState } from "react";
 import { FaBagShopping } from "react-icons/fa6";

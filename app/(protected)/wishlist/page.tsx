@@ -2,7 +2,7 @@
 
 import { useCartWishlist } from "@/context/CartWishlistProvider";
 import { FaChevronRight, FaHouse } from "react-icons/fa6";
-import WishlistItem from "../_components/WishlistItem";
+import WishlistItem from "../../(main)/_components/WishlistItem";
 
 export default function WishlistPage() {
   const { wishlistItems } = useCartWishlist();
